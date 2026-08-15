@@ -1,0 +1,69 @@
+@extends('admin.layouts.master')
+
+@section('main_admin')
+<div class="pagetitle">
+    <h1>Administrateur</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Index</a></li>
+        <li class="breadcrumb-item active">Clients</li>
+      </ol>
+    </nav>
+  </div>
+@endsection
+
+
+@section('contenu')
+
+ <div class="col-12">
+  <div class="card recent-sales overflow-auto">
+    <div class="card-body">
+      <h5 class="card-title">Liste Clients</h5>
+
+      <table class="table table-borderless datatable">
+        <thead>
+          <tr>
+            <th scope="col">Image</th>
+            <th scope="col">Nom</th>
+            <th scope="col">Prénom</th>
+            <th scope="col">Email</th>
+            <th scope="col">Adresse</th>
+            <th scope="col">Téléphone</th>
+            <th scope="col">Status</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach($clients as $c)
+          <tr>
+            <td><img id="imgB" src="{{ url('clients/images_clients',$c->image) }}" width="50px" height="50px"></td>
+            <th scope="row">{{ $c->nom }}</th>
+            <th>{{ $c->prenom}}</th>
+            <td>{{ $c->email}}</td>
+            <td>{{ $c->adresse}}</td>
+            <td>{{ $c->tel}}</td>
+             <td>
+                @if ($c->archive==1)
+                  Activé
+              @else
+              Archivé
+            @endif 
+
+
+             </td>
+            <td><a href="{{ route('archiver_user',$c->id)}}"><button title = "Archiver" type="button" style="background-color: transparent;border:transparent;"><i class="ri-archive-fill" style="font-size:25px;color:red"></i></button></a>
+            <a href="{{ route('activer_user',$c->id) }}"><button title = "Archiver" type="button" style="background-color: transparent;border:transparent;"><i class="ri-shield-check-line" style="font-size:25px;color:green;"></i></button></a></td>
+          </tr>
+         @endforeach
+          </tr>
+       
+        </tbody>
+      </table>
+
+    </div>
+
+  </div>
+</div>
+
+
+          @endsection

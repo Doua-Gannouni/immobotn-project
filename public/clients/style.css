@@ -1,0 +1,237 @@
+    @import url('https://fonts.googleapis.com/css2?family=Lilita+One&display=swap');
+    * {
+        text-decoration: none;
+        font-family: lilita one;
+    }
+    
+    header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+    }
+    
+    body {
+        background: white;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        /*margin-top: 20px;*/
+    }
+    
+    section.header {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        background-color: white;
+        height: 100px;
+        /*  top: 0;  */
+    }
+    
+    div.btn {
+        display: flex;
+        align-items: center;
+    }
+    
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        cursor: default;
+    }
+    
+    li {
+        display: inline-block;
+    }
+    
+    div.btn button {
+        border: none;
+        font-size: 18px;
+        color: white;
+        padding: 10px 12px;
+        border-radius: 30px;
+        outline: none;
+        margin: 0px 5px;
+        transition: box-shadow 0.5s;
+    }
+    
+    div.btn1 button {
+        background-color: #177d85;
+    }
+    
+    div.btn2 button {
+        background-color: slategray;
+    }
+    
+    div.btn1 button:hover {
+        box-shadow: 0px 0px 10px steelblue;
+        cursor: pointer;
+    }
+    
+    div.btn2 button:hover {
+        box-shadow: 0px 0px 10px slategray;
+        cursor: pointer;
+    }
+    
+    nav {
+        background-color: black;
+        margin-right: 15px;
+    }
+    
+    nav ul {
+        text-align: center;
+    }
+    
+    nav li {
+        text-align: center;
+    }
+    
+    nav ul li a {
+        font-size: 18px;
+        display: block;
+        color: white;
+        padding: 8px 10px;
+        margin: 0px 5px;
+        font-weight: 500;
+        border-top: 4px solid transparent;
+        border-bottom: 4px solid transparent;
+        border-radius: 2px;
+        transition-property: border-bottom, background-color;
+        transition-duration: 0.4s;
+    }
+    
+    nav ul li a:hover {
+        border-bottom: 4px solid #177d85;
+    }
+    /*.btn-search {
+        border-radius: 50%;
+        color: slategray;
+    }*/
+    
+    .btn-search:hover {
+        color: #177d85;
+    }
+    
+    div.social-btn ul li i {
+        font-size: 22px;
+        margin: 10px 7px;
+        color: slategray;
+    }
+    
+    div.social-btn ul li i:hover {
+        color: #177d85;
+    }
+    
+    .searchtxt {
+        border-radius: 30px;
+        border-style: solid;
+        border-color: #177d85;
+        width: 200px;
+    }
+    
+    footer {
+        /* flex-shrink: 0;*/
+        width: 100%;
+        background: #177d85;
+        color: #000;
+        width: 100%;
+        bottom: 0;
+        height: auto;
+    }
+    
+    .img-footer {
+        width: 150px;
+        height: 100px;
+        margin: 2px;
+    }
+    
+    .footer-contenu {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        font-size: 20px;
+        padding: 50px 0px 50px 50px;
+    }
+    
+    .bloc {
+        margin: 0 30px;
+    }
+    
+    .bloc-1 {
+        width: 70%;
+    }
+    
+    .bloc-2 {
+        width: 30%;
+    }
+    
+    main {
+        margin: auto auto;
+        height: auto;
+    }
+    
+    .search-btn {
+        border-radius: 50%;
+        height: 30px;
+        width: 30px;
+        background-color: #177d85;
+        border-color: #177d85;
+        color: white;
+        cursor: pointer;
+    }
+    
+    .footer-bottom {
+        text-align: center;
+        background-color: #177d85;
+        border-top: solid 1px white;
+        padding: 10px;
+    }
+    
+    .search {
+        margin-top: 12px;
+    }
+    
+    @media screen and (max-width: 600px) {
+        section.header {
+            /* display: flex;
+            flex-wrap: inherit;*/
+            align-items: center;
+            background-color: white;
+            display: block;
+            text-align: center;
+            width: 100%;
+            display: block;
+            margin-bottom: 20px;
+            height: 330px;
+            top: 0;
+        }
+        body {
+            height: 100%;
+        }
+        main {
+            margin: 0 auto;
+            height: auto;
+            margin-top: 250px;
+            width: 100%;
+            align-items: center;
+        }
+        .logo {
+            size: 200px;
+        }
+        div.social-btn ul li i {
+            font-size: 22px;
+            margin: 5px 5px;
+            color: slategray;
+        }
+        .search {
+            margin-top: 0px;
+        }
+        div.btn button {
+            margin-left: 100%;
+            margin-right: 100%;
+            margin-top: 5px;
+            padding: 10px;
+        }
+        .btn1 {
+            margin-right: 10px;
+        }
+    }
