@@ -34,8 +34,8 @@
   // Enable pusher logging - don't include this in production
  /* Pusher.logToConsole = true;
 
-  var pusher = new Pusher('c21bc72bc239d911c301', {
-    cluster: 'mt1'
+  var pusher = new Pusher('{{ config('broadcasting.connections.pusher.key') }}', {
+    cluster: '{{ config('broadcasting.connections.pusher.options.options.cluster') }}'
   });
 
   var channel = pusher.subscribe('new_notification');
@@ -47,8 +47,8 @@
          // Enable pusher logging - don't include this in production
     Pusher.logToConsole = true;
 
-var pusher = new Pusher('c21bc72bc239d911c301', {
-  cluster: 'mt1'
+var pusher = new Pusher('{{ config('broadcasting.connections.pusher.key') }}', {
+  cluster: '{{ config('broadcasting.connections.pusher.options.options.cluster') }}'
 });
 
 var channel = pusher.subscribe('new-notifications');
