@@ -50,13 +50,13 @@ class BienController extends Controller
     public function store(Request $request)
     {
        $request->validate(
-        ['titre' => 'required|alpha',
+        ['titre' => 'required|string|max:255',
         'prix'=>'required|numeric',
         'surface'=>'required|numeric',
         'largeur'=>'required|numeric',
         'longueur'=>'required|numeric',
         'image' => 'required|image|mimes:jpg,jpeg,png,gif|max:2048',
-        
+
 
         ]
        );
@@ -163,7 +163,7 @@ class BienController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate(
-            ['titre' => 'required|alpha',
+            ['titre' => 'required|string|max:255',
             'prix'=>'required|numeric',
             'surface'=>'required|numeric',
             'largeur'=>'required|numeric',

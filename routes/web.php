@@ -30,13 +30,13 @@ Route::group( [ 'prefix' => 'admin','middleware'=>'admin'], function()
                 Route::get('/listebiens',[AdminController::class , 'listebiens'])->name('listebiens');
 
                 // Activer bien : admin
-                Route::get('active_bien\{id}',[AdminController::class , 'active_bien'])->name('activer_bien');
+                Route::get('active_bien/{id}',[AdminController::class , 'active_bien'])->name('activer_bien');
 
                 // Désactiver bien : admin
-                Route::get('desactive_bien\{id}',[AdminController::class , 'desactive_bien'])->name('desactiver_bien');
+                Route::get('desactive_bien/{id}',[AdminController::class , 'desactive_bien'])->name('desactiver_bien');
 
                 //supprimer bien : admin
-                Route::get('supprimer\{id}',[AdminController::class , 'supprimer_bien'])->name('supprimer_bien');
+                Route::get('supprimer/{id}',[AdminController::class , 'supprimer_bien'])->name('supprimer_bien');
                 //Deconnecter admin
                 Route::get('/deconnecter_admin' , [AdminController::class, 'deconnecter_admin'])->name('deconnecter_admin') ;
 
@@ -50,10 +50,10 @@ Route::group( [ 'prefix' => 'admin','middleware'=>'admin'], function()
 
 
                  // Archiver user
-                 Route::get('archiver_user\{id}',[AdminController::class , 'archiver_user'])->name('archiver_user');
+                 Route::get('archiver_user/{id}',[AdminController::class , 'archiver_user'])->name('archiver_user');
 
                   // Archiver user
-                  Route::get('activer_user\{id}',[AdminController::class , 'artiver_user'])->name('activer_user');
+                  Route::get('activer_user/{id}',[AdminController::class , 'artiver_user'])->name('activer_user');
 
 
                  Route::get('/edit_profil',[AdminController::class,'edit_profil'])->name('edit_profil');
@@ -99,7 +99,7 @@ Route::get('/deconnecter_client' , [ProfilController::class, 'deconnecter_client
 Route::resource('bien',BienController::class);
 
 // Contacter : client->professionnel 
-Route::get('/contact\{id}' , [ContactController::class, 'contact'])->name('contact');
+Route::get('/contact/{id}' , [ContactController::class, 'contact'])->name('contact');
 
 Route::post('postmail/{id}',[ContactController::class, 'postmail'])->name('postmail');
 
