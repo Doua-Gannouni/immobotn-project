@@ -15,46 +15,55 @@
   <h1 style="font-size: 35px;color:#177d85">{{ $bien->titre }}</h1>
   <table>
     <tr>
-  <td><p><span id="spant">Prix</span> </p></td>
-  <td><p><span id="spand">{{ $bien->prix }}&nbsp;TND</span></p></td>
+      <td><p><span class="spant">Prix</span> </p></td>
+      <td><p><span class="spand">{{ $bien->prix }}&nbsp;TND</span></p></td>
     </tr>
     <tr>
-  <td><p><span id="spant">Surface</span> </p></td>
-  <td><p><span id="spand">{{ $bien->surface }}</span></p></td>
+      <td><p><span class="spant">Surface</span> </p></td>
+      <td><p><span class="spand">{{ $bien->surface }}</span></p></td>
+    </tr>
     <tr>
-      <tr>
-        <td><p><span id="spant">Longueur</span> </p></td>
-        <td><p><span id="spand">{{ $bien->longueur }}</span></p></td>
-          <tr>
-            <tr>
-              <td><p><span id="spant">Largeur</span> </p></td>
-              <td><p><span id="spand">{{ $bien->largeur }}</span></p></td>
-                <tr>
+      <td><p><span class="spant">Longueur</span> </p></td>
+      <td><p><span class="spand">{{ $bien->longueur }}</span></p></td>
+    </tr>
+    <tr>
+      <td><p><span class="spant">Largeur</span> </p></td>
+      <td><p><span class="spand">{{ $bien->largeur }}</span></p></td>
+    </tr>
   </table>
   <h1 style="font-size: 35px;color:#177d85">Posté par&nbsp;:</h1>
   <table>
     <tr>
-  <td><p><span id="spant">Nom</span> </p></td>
-  <td><p><span id="spand">{{ $bien->users->nom }}</span></p></td>
+      <td><p><span class="spant">Nom</span> </p></td>
+      <td><p><span class="spand">{{ $bien->users->nom }}</span></p></td>
     </tr>
     <tr>
-      <td><p><span id="spant">prénom</span> </p></td>
-      <td><p><span id="spand">{{ $bien->users->prenom }}</span></p></td>
-        </tr>
+      <td><p><span class="spant">Prénom</span> </p></td>
+      <td><p><span class="spand">{{ $bien->users->prenom }}</span></p></td>
+    </tr>
     <tr>
-  <td><p><span id="spant">Adresse</span> </p></td>
-  <td><p><span id="spand">{{ $bien->users->adresse}}</span></p></td>
+      <td><p><span class="spant">Adresse</span> </p></td>
+      <td><p><span class="spand">{{ $bien->users->adresse}}</span></p></td>
+    </tr>
     <tr>
-      <tr>
-        <td><p><span id="spant">Email</span> </p></td>
-        <td><p><span id="spand">{{ $bien->users->email }}</span></p></td>
-          <tr>
-            <tr>
-              <td><p><span id="spant">Téléphone</span> </p></td>
-              <td><p><span id="spand">{{ $bien->users->tel }}</span></p></td>
-                <tr>
+      <td><p><span class="spant">Email</span> </p></td>
+      <td><p><span class="spand" style="text-transform:none;">{{ $bien->users->email }}</span></p></td>
+    </tr>
+    <tr>
+      <td><p><span class="spant">Téléphone</span> </p></td>
+      <td><p><span class="spand">{{ $bien->users->tel }}</span></p></td>
+    </tr>
   </table>
  </div>
+
+@if (count($images) > 0)
+<div class="galerie">
+  @foreach ($images as $i)
+    <img class="imagegalerie" src="{{ url('clients/images_biens',$i->image) }}">
+  @endforeach
+</div>
+@endif
+
 
 </div>
 
@@ -92,21 +101,30 @@ div.details{
   height:300px;
 }
 
-.imagebien:hover{
-  /*box-shadow: 0 5px 15px slategray;*/
+.galerie{
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
 
+.imagegalerie{
+  width: 200px;
+  height: 150px;
+  margin: 15px 15px;
+  border-radius: 5px;
+  box-shadow: 0 5px 15px slategray;
 }
 
 
 
-#spant{
+.spant{
   color: slategray;
   font-size: 25px; 
   margin-left: 20px;
   text-transform: capitalize;
 }
 
-#spand{
+.spand{
   margin-left: 40px;
   font-size: 20px;
   text-transform: capitalize;

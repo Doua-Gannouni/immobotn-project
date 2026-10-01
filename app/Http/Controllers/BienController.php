@@ -7,18 +7,16 @@ use Illuminate\Http\Request;
 use App\Models\Bien;
 use App\Models\Image;
 use App\Models\User;
-use App\Notifications\biennotification;
 use App\Notifications\CreateBienNotification;
 use File;
 use Auth;
 use DB;
-use Illuminate\Console\Scheduling\Event;
 use Notification;
 
 
 class BienController extends Controller
 {
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -37,7 +35,7 @@ class BienController extends Controller
      */
     public function create()
     {
-        
+
         return view('client.pages.create');
     }
 
@@ -56,19 +54,14 @@ class BienController extends Controller
         'largeur'=>'required|numeric',
         'longueur'=>'required|numeric',
         'image' => 'required|image|mimes:jpg,jpeg,png,gif|max:2048',
-
+        'images.*' => 'image|mimes:jpg,jpeg,png,gif|max:2048',
 
         ]
        );
 
-       $infos=$request->except('image');
-
        $img=$request->image;
-       if($img)
-       {
-        $img_nom=uniqid().'.'.File::extension($img->getClientOriginalName());
-        $img->move('clients/images_biens',$img_nom);
-       }
+       $img_nom=uniqid().'.'.$img->extension();
+       $img->move(public_path('clients/images_biens'),$img_nom);
 
        $bien=New Bien();
        $bien->titre=$request->titre;
@@ -79,20 +72,13 @@ class BienController extends Controller
        $bien->image=$img_nom;
        $bien->user_id=Auth::user()->id;
        $bien->save();
-    
-       $data = [
-        'user_id' => Auth::user()->id,
-        'bien_id' => $request->titre,
-    ];
-
-
 
 
        if($request->hasFile('images')){
         $files=$request->file('images');
         foreach($files as $file){
-            $image_nom=uniqid().'.'.File::extension($file->getClientOriginalName());  /*time().'_'.$file->getClientOriginalName();*/
-            $file->move('clients/images_biens',$image_nom);
+            $image_nom=uniqid().'.'.$file->extension();
+            $file->move(public_path('clients/images_biens'),$image_nom);
             $images=new Image();
             $images->image=$image_nom;
             $images->bien_id=$bien->id;
@@ -100,46 +86,25 @@ class BienController extends Controller
         }
        }
 
-   
-       return redirect()->back(); 
+
+       //Notifier l'admin : notification en base + temps réel (Pusher)
+       $prof = Auth::user()->prenom.' '.Auth::user()->nom;
+
+       $admins = User::where('role','admin')->get();
+       Notification::send($admins, new CreateBienNotification($bien->id, $bien->titre, $prof));
+
+       $data = [
+        'bien_id' => $bien->id,
+        'titre' => $bien->titre,
+        'prof' => $prof,
+       ];
+
        event(new NewNotification($data));
 
-
-
-        /*
-       $users = auth()->user()->get();
-
-       $create_bien = auth()->user()->id->get();
-       Notification::send($users,new CreateBienNotification($bien->id,$create_bien));
-*/
-       //$users=DB::table('users')->get();
-      // $create_bien=DB::table('users')->where('nom')->get();
-
-       
-      
-             //Notification::notify(new CreateBienNotification($this->bien));
-       
+       return redirect()->route('bien.index')->with('msg','Votre bien est ajouté avec succès, il sera visible après validation par l\'administrateur');
        }
-      
-       
-       
-    
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-       $biens  = Bien::findOrFail($id);
-       //return $biens;
-       $getid = DB::table('notifications')->where('data->id',$id)->pluck('id');
-      // return $getid;
-       DB::table('notifications')->where('id',$getid)->update(['read_at'=>now()]);
-       return view('admin.pages.dashboard');
-    }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -149,7 +114,8 @@ class BienController extends Controller
      */
     public function edit($id)
     {
-        $bien=Bien::find($id);
+        //le professionnel ne peut modifier que ses propres biens
+        $bien=Bien::where('user_id',Auth::user()->id)->findOrFail($id);
         return view("client.pages.edit", compact("bien"));
     }
 
@@ -172,53 +138,29 @@ class BienController extends Controller
             ]
            );
 
-        $bien=Bien::find($id);
+        //le professionnel ne peut modifier que ses propres biens
+        $bien=Bien::where('user_id',Auth::user()->id)->findOrFail($id);
 
         $bien->titre=$request->titre;
        $bien->prix=$request->prix;
        $bien->surface=$request->surface;
        $bien->largeur=$request->largeur;
        $bien->longueur=$request->longueur;
-        
-
-       /*$file_path = public_path().'/clients/images_biens/'.$bien->image;
-        unlink($file_path);*/
-       
-        //$infos=$request->except('image');
 
        $img=$request->image;
        if($img)
        {
-        $file_path = public_path().'/clients/images_biens/'.$bien->image;
-        unlink($file_path);
-        $image = $request->file('image');
-        $newname = uniqid().'.'.File::extension($img->getClientOriginalName());
-        $image->move('clients/images_biens',$newname);
+        //supprimer l'ancienne image
+        File::delete(public_path('clients/images_biens/'.$bien->image));
+
+        $newname = uniqid().'.'.$img->extension();
+        $img->move(public_path('clients/images_biens'),$newname);
         $bien->image = $newname;
        }
-  
-       
-      /* if($request->hasFile('image')){
-        $image = $request->file('image');
-        $newname = uniqid().'.'.File::extension($img->getClientOriginalName());
-        $image->move('clients/images_biens',$newname);
-        $bien->image = $newname;
-       }*/
-       $bien->user_id=Auth::user()->id;
 
-       if($bien->update())
-       {
-        return redirect()->route('bien.index')->with('msg','Votre bien est modifié avec succées');
-       }
-       else{
-        return 'erreur';
-       }
-
-
-       /*
        $bien->update();
-       
-        return redirect()->back();*/
+
+       return redirect()->route('bien.index')->with('msg','Votre bien est modifié avec succès');
     }
 
     /**
@@ -229,32 +171,13 @@ class BienController extends Controller
      */
     public function destroy($id)
     {
+        //le professionnel ne peut supprimer que ses propres biens
+        $bien = Bien::where('user_id',Auth::user()->id)->findOrFail($id);
 
-        $bien = Bien::find($id);
-        $file_path = public_path().'/clients/images_biens/'.$bien->image;
-        unlink($file_path);
-       
-
+        $bien->supprimer_images();
         $bien->delete();
 
-            return redirect()->back()->with('msg','Votre bien est supprimé avec succées');
-        
-        
-
-
-        /*$bien->user_id=Auth::user()->id;
-        $bien->delete();
-        return redirect()->back();*/
+        return redirect()->back()->with('msg','Votre bien est supprimé avec succès');
     }
 
-        public function deleteimages($id){
-            $images=Image::find($id);
-            
-        
-
-        return back();
-        }
-
-        
-    }
-
+}

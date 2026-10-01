@@ -36,10 +36,8 @@ return [
             'secret' => env('PUSHER_APP_SECRET'),
             'app_id' => env('PUSHER_APP_ID'),
             'options' => [
-                'options' => [
-                    'cluster' => 'mt1',
-                    'useTLS' => true
-                  ],
+                'cluster' => env('PUSHER_APP_CLUSTER', 'mt1'),
+                'useTLS' => true,
             ],
         ],
 

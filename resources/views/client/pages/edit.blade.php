@@ -69,13 +69,14 @@
         </div>
       </div>
       <div class="button">
-        <input id="btnE" type="submit" value="Modifer">
+        <input id="btnE" type="submit" value="Modifier">
       </div>
     </form>
   </div>
 </div>
-</html>
 
+
+@endsection
 
 <style>
 #btnE{

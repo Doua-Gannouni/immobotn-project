@@ -39,21 +39,30 @@
             <td>{{ $bien->surface }}</td>
             <td>
               @if ($bien->active==0)
-              non activée
+              Non activé
               @else
               Activé
-            @endif 
+            @endif
           </td>
             <td style="width: 200px;">
-            <a href="{{ route('details_bien',$bien->id) }}"><button title="Details" type="button" style="background-color: transparent;border:transparent;" ><i class="ri-eye-fill" style="font-size:25px;color:blue"></i></button></i></a>
-            <a href="{{  route('activer_bien',$bien->id) }}"><button title="Valider" type="button" style="background-color: transparent;border:transparent;"><i class="ri-checkbox-circle-fill"  style="font-size:25px;color:green"></i></button></a>
-            <a href="{{  route('desactiver_bien',$bien->id) }}"><button title="Invalider" type="button" style="background-color: transparent;border:transparent;"><i class="ri-close-circle-fill"  style="font-size:25px;color:red"></i></button></a>
-            <a href="{{ route('supprimer_bien',$bien->id) }}"> <button title="Supprimer" type="button" style="background-color: transparent;border:transparent;" ><i class="ri-delete-bin-4-fill" style="font-size:25px;color:red"></i></button></a>
+            <a href="{{ route('details_bien',$bien->id) }}"><button title="Details" type="button" style="background-color: transparent;border:transparent;" ><i class="ri-eye-fill" style="font-size:25px;color:blue"></i></button></a>
+            <form class="d-inline" action="{{  route('activer_bien',$bien->id) }}" method="POST">
+              @csrf
+              <button title="Valider" type="submit" style="background-color: transparent;border:transparent;"><i class="ri-checkbox-circle-fill"  style="font-size:25px;color:green"></i></button>
+            </form>
+            <form class="d-inline" action="{{  route('desactiver_bien',$bien->id) }}" method="POST">
+              @csrf
+              <button title="Invalider" type="submit" style="background-color: transparent;border:transparent;"><i class="ri-close-circle-fill"  style="font-size:25px;color:red"></i></button>
+            </form>
+            <form class="d-inline" action="{{ route('supprimer_bien',$bien->id) }}" method="POST" onsubmit="return confirm('Supprimer ce bien ?')">
+              @csrf
+              @method('DELETE')
+              <button title="Supprimer" type="submit" style="background-color: transparent;border:transparent;" ><i class="ri-delete-bin-4-fill" style="font-size:25px;color:red"></i></button>
+            </form>
             </td>
           </tr>
          @endforeach
-          </tr>
-       
+
         </tbody>
       </table>
 

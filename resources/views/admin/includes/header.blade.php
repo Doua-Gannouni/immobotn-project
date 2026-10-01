@@ -10,60 +10,47 @@
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
 
-    <div class="search-bar">
-      <form class="search-form d-flex align-items-center" method="POST" action="#">
-        <input type="text" name="query" placeholder="Chercher..." title="Enter search keyword">
-        <button type="submit" title="Search"><i class="bi bi-search"></i></button>
-      </form>
-    </div><!-- End Search Bar -->
-
     <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
 
-        <li class="nav-item d-block d-lg-none">
-          <a class="nav-link nav-icon search-bar-toggle " href="#">
-            <i class="bi bi-search"></i>
-          </a>
-        </li><!-- End Search Icon-->
-
-        <li class="dropdown dropdown-notification nav-item  dropdown-notifications">
-          <a class="nav-link nav-link-label" href="{{  route('listebiens') }}" data-toggle="dropdown">
-
-          <!--<a class="nav-link nav-icon" href="" data-bs-toggle="dropdown" data-toggle="dropdown">-->
+        <li class="nav-item dropdown dropdown-notifications">
+          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
             <i class="bi bi-bell" ></i>
-
-            <span class="badge badge-pill badge-default badge-danger badge-default badge-up badge-glow   notif-count  "
-             data-count="0">0</span>
-  
-           <!-- <span class="badge bg-primary badge-number" data-count="0" >0</span>-->
+            <span class="badge bg-primary badge-number notif-count" data-count="{{ Auth::user()->unreadNotifications->count() }}">{{ Auth::user()->unreadNotifications->count() }}</span>
           </a><!-- End Notification Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
             <li class="dropdown-header">
-              Vous avez  Notifications
-              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">Voir Tous</span></a>
+              Vous avez <span class="notif-count">{{ Auth::user()->unreadNotifications->count() }}</span> notification(s)
+              <a href="{{ route('listebiens') }}"><span class="badge rounded-pill bg-primary p-2 ms-2">Voir Tous</span></a>
             </li>
-            <li>
+            <li class="notifications-start">
               <hr class="dropdown-divider">
             </li>
 
-            <li class="notification-item" >
+            @foreach (Auth::user()->unreadNotifications as $n)
+            <li class="notification-item">
               <i class="bi bi-exclamation-circle text-warning"></i>
-             
+              <div>
+                <h4><a href="{{ route('details_bien', $n->data['id']) }}">{{ $n->data['titre'] }}</a></h4>
+                <p>Ajouté par {{ $n->data['prof'] }}</p>
+                <p>{{ $n->created_at->diffForHumans() }}</p>
+              </div>
             </li>
+            @endforeach
 
             <li>
               <hr class="dropdown-divider">
             </li>
             <li class="dropdown-footer">
-              <a href="#">Voir toutes les notifications</a>
+              <a href="{{ route('listebiens') }}">Voir tous les biens</a>
             </li>
 
           </ul><!-- End Notification Dropdown Items -->
 
         </li><!-- End Notification Nav -->
 
-    
+
 
         <li class="nav-item dropdown pe-3">
 
@@ -73,7 +60,7 @@
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-      
+
             <li>
               <a class="dropdown-item d-flex align-items-center" href="{{ route('edit_profil') }}">
                 <i class="bi bi-person"></i>
@@ -84,10 +71,13 @@
               <hr class="dropdown-divider">
             </li>
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="{{ route('deconnecter_admin') }}">
-                <i class="bi bi-box-arrow-right"></i>
-                <span>Déconnexion</span>
-              </a>
+              <form action="{{ route('deconnecter_admin') }}" method="POST">
+                @csrf
+                <button type="submit" class="dropdown-item d-flex align-items-center">
+                  <i class="bi bi-box-arrow-right"></i>
+                  <span>Déconnexion</span>
+                </button>
+              </form>
             </li>
 
           </ul><!-- End Profile Dropdown Items -->

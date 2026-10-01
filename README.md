@@ -41,7 +41,7 @@ This project was designed and developed **end-to-end (conception → development
 ### Backend
 | Technology | Version |
 |---|---|
-| PHP | ^7.3 \| ^8.0 |
+| PHP | ~8.1.0 |
 | Laravel Framework | ^8.75 |
 | Laravel Sanctum | ^2.11 |
 | Laravel UI | ^3.4 |
@@ -49,7 +49,6 @@ This project was designed and developed **end-to-end (conception → development
 | Guzzle HTTP | ^7.0.1 |
 | Pusher PHP Server | ^7.0 |
 | fruitcake/laravel-cors | ^2.0 |
-| laravel-lang/lang | ~7.0 |
 
 ### Frontend
 | Technology | Version |
@@ -75,12 +74,16 @@ This project was designed and developed **end-to-end (conception → development
 
 ## Architecture
 
-- **MVC** structure (standard Laravel), with controllers split by domain: `AdminController`, `AuthentificationController`, `BienController`, `ContactController`, `ProfilController`, `clientController`, `IndexController`
+- **MVC** structure (standard Laravel), with controllers split by domain: `AdminController`, `AuthentificationController`, `BienController`, `ContactController`, `ProfilController`, `ClientController`, `IndexController`
 - **Eloquent models**: `User` (role-based: client / professional / admin), `Bien` (property), `Image`, `Contact`
+- **Role-based access** with middlewares: `admin`, `client` and `professionnel`
 - **Separate view namespaces** for `admin` and `client` interfaces (`resources/views/admin`, `resources/views/client`)
 - **Event/Notification system**: `NewNotification` event broadcast over Pusher, `CreateBienNotification` for database notifications
 
 ## Local Setup
+
+> All dependencies are locked to the versions of 2022 (`composer.lock`, Laravel 8.83.19, Carbon 2.59.1).
+> They require **PHP 8.1** (PHP 8.2+ is not supported by these versions).
 
 1. Clone the repository and install PHP dependencies:
    ```bash
@@ -91,14 +94,17 @@ This project was designed and developed **end-to-end (conception → development
    cp .env.example .env
    php artisan key:generate
    ```
-3. Configure your database (MySQL) and Mailtrap credentials in `.env`.
+3. Configure your database (MySQL) and Mailtrap credentials in `.env`, plus:
+   - `MAIL_FROM_ADDRESS` — sender address of the emails
+   - `ADMIN_EMAIL` / `ADMIN_PASSWORD` — admin account created by the seeder
+   - `PUSHER_APP_*` and `BROADCAST_DRIVER=pusher` for real-time notifications (optional)
 4. Run migrations:
    ```bash
    php artisan migrate
    ```
 5. Seed the admin account:
    ```bash
-   php artisan db:seed --class=AdminSeeder
+   php artisan db:seed
    ```
 6. Serve the application:
    ```bash

@@ -51,12 +51,19 @@
 
 
              </td>
-            <td><a href="{{ route('archiver_user',$c->id)}}"><button title = "Archiver" type="button" style="background-color: transparent;border:transparent;"><i class="ri-archive-fill" style="font-size:25px;color:red"></i></button></a>
-            <a href="{{ route('activer_user',$c->id) }}"><button title = "Archiver" type="button" style="background-color: transparent;border:transparent;"><i class="ri-shield-check-line" style="font-size:25px;color:green;"></i></button></a></td>
+            <td>
+            <form class="d-inline" action="{{ route('archiver_user',$c->id)}}" method="POST">
+              @csrf
+              <button title = "Archiver" type="submit" style="background-color: transparent;border:transparent;"><i class="ri-archive-fill" style="font-size:25px;color:red"></i></button>
+            </form>
+            <form class="d-inline" action="{{ route('activer_user',$c->id) }}" method="POST">
+              @csrf
+              <button title = "Activer" type="submit" style="background-color: transparent;border:transparent;"><i class="ri-shield-check-line" style="font-size:25px;color:green;"></i></button>
+            </form>
+            </td>
           </tr>
          @endforeach
-          </tr>
-       
+
         </tbody>
       </table>
 

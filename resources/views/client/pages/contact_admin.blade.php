@@ -16,7 +16,7 @@
 
           <div class="input-box">
             <span class="details">Titre</span>
-            <input type="text" name="titre" placeholder="Titre..." >
+            <input type="text" name="titre" placeholder="Titre..." value="{{ old('titre') }}">
             @error('titre')
           <div Style="color:red">
           {{ $message }}
@@ -26,7 +26,7 @@
          
           <div class="input-box">
             <span class="details">Sujet</span>
-            <input type="text" name="sujet" placeholder="Sujet..."  >
+            <input type="text" name="sujet" placeholder="Sujet..." value="{{ old('sujet') }}">
             @error('sujet')
           <div Style="color:red">
           {{ $message }}
@@ -36,7 +36,7 @@
 
           <div class="input-box">
             <span class="details">Description</span>
-            <textarea type="text" name="description" placeholder="Description..."  ></textarea>
+            <textarea name="description" placeholder="Description..." >{{ old('description') }}</textarea>
             @error('description')
           <div Style="color:red">
           {{ $message }}
@@ -55,6 +55,8 @@
   
  
   
+@endsection
+
   <style>
   
   .container{

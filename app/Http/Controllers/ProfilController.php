@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
-use App\Models\User;
-use DB;
 use File;
 
 class ProfilController extends Controller
@@ -14,15 +12,17 @@ class ProfilController extends Controller
        public function profil() {
         return view ('client.pages.profil') ;
     }
-    
+
     public function connexion(){
         return view ('client.pages.connexion');
     }
 
 
         //Déconnexion client, professionnel
-    public function deconnecter_client(){
+    public function deconnecter_client(Request $request){
         Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
 
         return redirect()->route('connexion');
     }
@@ -31,8 +31,7 @@ class ProfilController extends Controller
     //Voir mon Profil
 public function monprofil()
 {
-    $infos=DB::table('users')->where('id',Auth::user()->id)->get();
-        return view('client.pages.monprofil',compact('infos'));
+        return view('client.pages.monprofil');
 }
 
 public function modif_infos()
@@ -43,40 +42,42 @@ public function modif_infos()
 public function postinfos(Request $request)
 {
     $request->validate(
-        ['nom' => 'required|alpha',
-        'prenom'=>'required|alpha',
-        'email'=>'required|email',
-        'adresse'=>'required|alpha',
-        'tel'=>'required|numeric',
-        'password' => 'required',
-        'role'=>'required',
+        ['nom' => 'required|string|max:255',
+        'prenom'=>'required|string|max:255',
+        'email'=>'required|email|unique:users,email,'.Auth::user()->id,
+        'adresse'=>'required|string|max:255',
+        'tel'=>'required|digits:8',
+        'password' => 'nullable|min:8',
+        'role'=>'required|in:Client,Professionnel',
         'image' => 'image|mimes:jpg,jpeg,png,gif|max:2048',
 
         ]
        );
 
-     
-        $infos=$request->except('image');
+    $u= Auth::user();
 
        $img=$request->image;
        if($img)
        {
-        $img_nom=uniqid().'.'.File::extension($img->getClientOriginalName());
-        $img->move('clients/images_clients',$img_nom);
-       }
-    
+        //supprimer l'ancienne image
+        File::delete(public_path('clients/images_clients/'.$u->image));
 
-    $u= Auth::user();
+        $img_nom=uniqid().'.'.$img->extension();
+        $img->move(public_path('clients/images_clients'),$img_nom);
+        $u->image=$img_nom;
+       }
+
     $u->nom=$request->nom;
     $u->prenom=$request->prenom;
     $u->email=$request->email;
     $u->adresse=$request->adresse;
     $u->tel=$request->tel;
-    $u->password=bcrypt($request->password);
-    $u->role=$request->role;
-    if($request->hasFile('image')){
-        $u->image=$img_nom;
+
+    //mot de passe modifié seulement s'il est rempli
+    if($request->password){
+        $u->password=bcrypt($request->password);
     }
+    $u->role=$request->role;
     $u->update();
 
     return redirect()->route('monprofil');
@@ -86,4 +87,3 @@ public function postinfos(Request $request)
 
 
 }
-

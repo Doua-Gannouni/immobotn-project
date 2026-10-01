@@ -10,6 +10,7 @@ class AdminSeeder extends Seeder
 {
     /**
      * Run the database seeds.
+     * email et mot de passe de l'admin : ADMIN_EMAIL et ADMIN_PASSWORD dans le .env
      *
      * @return void
      */
@@ -18,12 +19,14 @@ class AdminSeeder extends Seeder
         DB::table('users')->insert(
         ['nom' => 'admin',
          'prenom' => 'admin',
-         'email' =>  'admin@gmail.com',
+         'email' =>  env('ADMIN_EMAIL', 'admin@gmail.com'),
          'role'=>'admin',
          'adresse' =>'Moknine',
-         'tel' => '555555' ,
-         'password' => Hash::make('admin'),
-         'image'=> asset('admin/images_admin/admin.png') ,
+         'tel' => '55555555' ,
+         'password' => Hash::make(env('ADMIN_PASSWORD', 'admin')),
+         'image'=> 'admin.png' ,
+         'created_at' => now(),
+         'updated_at' => now(),
         ]
         );
     }

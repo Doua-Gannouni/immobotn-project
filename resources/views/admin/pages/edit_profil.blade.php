@@ -15,19 +15,24 @@
 @section('contenu')
 
 <section class="section profile">
+
+    @if ($errors->any())
+      <div class="alert alert-danger">
+        @foreach ($errors->all() as $error)
+          <div>{{ $error }}</div>
+        @endforeach
+      </div>
+    @endif
    
     <div class="row">
       <div class="col-xl-4">
         <div class="card">
-           @foreach ($infos as $i )
-               
-           @endforeach
            
              
           <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
-            <img src="{{ url('admin/images_admin',Auth::user()->image)}}" alt="Profile" class="rounded-circle">
-            <h2>{{ $i->nom }}&nbsp;{{ $i->prenom }}</h2>
+            <img src="{{ url('admin/images_admin',$admin->image)}}" alt="Profile" class="rounded-circle">
+            <h2>{{ $admin->nom }}&nbsp;{{ $admin->prenom }}</h2>
             <h3>Administrateur</h3>
             
           </div>
@@ -62,27 +67,27 @@
 
                 <div class="row">
                   <div class="col-lg-3 col-md-4 label ">Nom</div>
-                  <div class="col-lg-9 col-md-8">{{ $i->nom }}</div>
+                  <div class="col-lg-9 col-md-8">{{ $admin->nom }}</div>
                 </div>
 
                 <div class="row">
                   <div class="col-lg-3 col-md-4 label">Prénom</div>
-                  <div class="col-lg-9 col-md-8">{{ $i->prenom }}</div>
+                  <div class="col-lg-9 col-md-8">{{ $admin->prenom }}</div>
                 </div>
 
                 <div class="row">
                   <div class="col-lg-3 col-md-4 label">Email</div>
-                  <div class="col-lg-9 col-md-8">{{ $i->email }}</div>
+                  <div class="col-lg-9 col-md-8">{{ $admin->email }}</div>
                 </div>
 
                 <div class="row">
                   <div class="col-lg-3 col-md-4 label">Adresse</div>
-                  <div class="col-lg-9 col-md-8">{{ $i->adresse }}</div>
+                  <div class="col-lg-9 col-md-8">{{ $admin->adresse }}</div>
                 </div>
 
                 <div class="row">
                   <div class="col-lg-3 col-md-4 label">Téléphone</div>
-                  <div class="col-lg-9 col-md-8">{{ $i->tel }}</div>
+                  <div class="col-lg-9 col-md-8">{{ $admin->tel }}</div>
                 </div>
 
                
@@ -96,7 +101,7 @@
                   <div class="row mb-3">
                     <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Image</label>
                     <div class="col-md-8 col-lg-9">
-                      <img src="{{ url('admin/images_admin',Auth::user()->image)}}" alt="Profile">
+                      <img src="{{ url('admin/images_admin',$admin->image)}}" alt="Profile">
                       <div class="pt-2">
                         <input name="image" type="file" class="btn btn-primary btn-sm" title="Modifier image">
                       </div>
@@ -106,7 +111,7 @@
                   <div class="row mb-3">
                     <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Nom</label>
                     <div class="col-md-8 col-lg-9">
-                      <input name="nom" type="text" class="form-control" id="fullName" value="{{ $i->nom}}">
+                      <input name="nom" type="text" class="form-control" id="fullName" value="{{ $admin->nom }}">
                     </div>
                   </div>
 
@@ -115,35 +120,35 @@
                   <div class="row mb-3">
                     <label for="company" class="col-md-4 col-lg-3 col-form-label">Prénom</label>
                     <div class="col-md-8 col-lg-9">
-                      <input name="prenom" type="text" class="form-control" id="company" value="{{ $i->prenom }}">
+                      <input name="prenom" type="text" class="form-control" id="company" value="{{ $admin->prenom }}">
                     </div>
                   </div>
 
                   <div class="row mb-3">
                     <label for="Job" class="col-md-4 col-lg-3 col-form-label">Email</label>
                     <div class="col-md-8 col-lg-9">
-                      <input name="email" type="text" class="form-control" id="Job" value="{{ $i->email }}">
+                      <input name="email" type="text" class="form-control" id="Job" value="{{ $admin->email }}">
                     </div>
                   </div>
 
                   <div class="row mb-3">
                     <label for="Country" class="col-md-4 col-lg-3 col-form-label">Adresse</label>
                     <div class="col-md-8 col-lg-9">
-                      <input name="adresse" type="text" class="form-control" id="Country" value="{{ $i->adresse }}">
+                      <input name="adresse" type="text" class="form-control" id="Country" value="{{ $admin->adresse }}">
                     </div>
                   </div>
 
                   <div class="row mb-3">
-                    <label for="Address" class="col-md-4 col-lg-3 col-form-label">Télephone</label>
+                    <label for="Address" class="col-md-4 col-lg-3 col-form-label">Téléphone</label>
                     <div class="col-md-8 col-lg-9">
-                      <input name="tel" type="text" class="form-control" id="Address" value="{{ $i->tel }}">
+                      <input name="tel" type="text" class="form-control" id="Address" value="{{ $admin->tel }}">
                     </div>
                   </div>
 
                   <div class="row mb-3">
                     <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Mot de passe</label>
                     <div class="col-md-8 col-lg-9">
-                      <input name="password" type="password" class="form-control" value="" >
+                      <input name="password" type="password" class="form-control" value="" placeholder="Laisser vide pour garder le mot de passe actuel">
                     </div>
                   </div>
 

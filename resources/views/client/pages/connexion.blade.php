@@ -8,26 +8,29 @@
     @if ($message = Session::get('message1'))
     <div class="alert" Style="color: red;">{{ $message }} </div>
   @endif
+    @error('failed')
+    <div class="alert" Style="color: red;">{{ $message }} </div>
+    @enderror
     <form action="{{  route('postconnexion') }}" method="POST">
       @csrf
       <div class="user-details">
-       
+
         <div class="input-box">
           <span class="details">Email</span>
-          <input name="email" type="email" name="email" placeholder="Tapez votre Email" required>
+          <input type="email" name="email" placeholder="Tapez votre Email" value="{{ old('email') }}" required>
         </div>
-       
+
         <div class="input-box">
           <span class="details">Mot de passe</span>
-          <input name = "password" type="password" name="password" placeholder="Tapez votre Mot de passe" required>
+          <input type="password" name="password" placeholder="Tapez votre Mot de passe" required>
         </div>
 
         <div class="input-box">
           <span class="details">Vous êtes professionnel ou client ?</span>
           <div>
-          <select  style="width:calc(200% + 40px);" id="role">
-            <option label ="client">Client</option>
-            <option label="professionnel" >Professionnel</option>
+          <select name="role" style="width:calc(200% + 40px);" id="role">
+            <option value="Client">Client</option>
+            <option value="Professionnel" @if (old('role')=='Professionnel') selected @endif>Professionnel</option>
           </select>
           </div>
         </div>

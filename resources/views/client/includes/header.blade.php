@@ -23,18 +23,23 @@
                     background: -webkit-radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
                     background-clip: text;
                     -webkit-background-clip: text;font-size:28px;"></i></a></li>
-                <li><a href="#"><i class="fab fa-Linkedin" style="color: #007bb6;font-size:28px;"></i></a></li>	
+                <li><a href="#"><i class="fab fa-linkedin" style="color: #007bb6;font-size:28px;"></i></a></li>
             </ul>
         </div>
 
         <div class="btn">
             @if (Auth::guest())
-                <div class="btn1"><a href="{{ route('connexion') }}"><button type="button" name = "btnc"> Connexion</button></div>
+                <div class="btn1"><a href="{{ route('connexion') }}"><button type="button" name = "btnc"> Connexion</button></a></div>
                 <div class="btn2"><a href="{{ route('inscription') }}"><button type="button"> Inscription</button></a></div>
             @else
-                <div class="btn1"><a href="{{ route('profil') }}"><button type="button"><i class='fas fa-user-alt'></i>&nbsp;<span style="text-transform:capitalize;">{{  Auth::user()->prenom }}</span></button></div>
-                <div class="btn2"><a href="{{ route('deconnecter_client') }}"><button type="button"> Déconnexion</button></a></div>
-                
+                <div class="btn1"><a href="{{ route('profil') }}"><button type="button"><i class='fas fa-user-alt'></i>&nbsp;<span style="text-transform:capitalize;">{{  Auth::user()->prenom }}</span></button></a></div>
+                <div class="btn2">
+                    <form action="{{ route('deconnecter_client') }}" method="POST" style="margin:0;">
+                        @csrf
+                        <button type="submit"> Déconnexion</button>
+                    </form>
+                </div>
+
             @endif
         </div>
     </section>

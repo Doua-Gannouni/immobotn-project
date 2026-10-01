@@ -2,11 +2,11 @@
 
 @section('contenu')
 <div class="container">
-   <table>
       <div class="title">Mes biens</div>
       @if ($message = Session::get('msg'))
         <div class="alert" Style="color: green;">{{ $message }} </div>
       @endif
+   <table>
    
       <thead>
         <tr>
@@ -30,12 +30,14 @@
           <td>{{ $bien->surface }}</td>
           <td>{{ $bien->largeur }}</td>
           <td>{{ $bien->longueur }}</td>
-          <td><button title="Modifier" class="btn" style="background-color: transparent;"><a id="a" href="{{ route('bien.edit' ,$bien->id) }}"><i class="fas fa-edit" style='font-size:20px;color:green'></i></a></button></td>
-          <form action="{{ route('bien.destroy', $bien->id)}}" method="POST" >
-            @csrf
-            @method('delete')
-          <td><button title="Supprimer" class="btn"><i class="fa fa-trash" style='font-size:20px;color:red'></i></button></td>
-        </form>
+          <td><a href="{{ route('bien.edit' ,$bien->id) }}"><button title="Modifier" class="btn" style="background-color: transparent;"><i class="fas fa-edit" style='font-size:20px;color:green'></i></button></a></td>
+          <td>
+            <form action="{{ route('bien.destroy', $bien->id)}}" method="POST" onsubmit="return confirm('Supprimer ce bien ?')">
+              @csrf
+              @method('delete')
+              <button title="Supprimer" class="btn"><i class="fa fa-trash" style='font-size:20px;color:red'></i></button>
+            </form>
+          </td>
 
           <td><a href="{{ route('detailsbien',$bien->id) }}"><button title="Details" class="btn"><i class="fa fa-eye" style='font-size:20px;color:slategray'></i></button></a></td>
 

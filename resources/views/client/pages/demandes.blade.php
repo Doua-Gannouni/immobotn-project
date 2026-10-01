@@ -2,11 +2,11 @@
 
 @section('contenu')
 <div class="container">
-   <table>
       <div class="title">Mes demandes</div>
       @if ($message = Session::get('msg'))
         <div class="alert" Style="color: green;">{{ $message }} </div>
       @endif
+   <table>
    
       <thead>
         <tr>

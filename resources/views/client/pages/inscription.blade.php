@@ -58,7 +58,7 @@
         </div>
         <div class="input-box">
           <span class="details">Mot de passe</span>
-          <input type = "password" name="password" placeholder="Tapez votre Mot de passe" value="{{ @old('password') }}" >
+          <input type = "password" name="password" placeholder="Tapez votre Mot de passe (8 caractères min.)" >
           @error('password')
           <div Style="color:red">
           {{ $message }}
@@ -67,11 +67,11 @@
         </div>
         
         <div class="input-box">
-          <span class="details">Vous etes professionnel ou client ?</span>
+          <span class="details">Vous êtes professionnel ou client ?</span>
           <div>
           <select name="role" style="cursor: pointer;">
-            <option selected>Client</option>
-            <option>Professionnel</option>
+            <option value="Client">Client</option>
+            <option value="Professionnel" @if (old('role')=='Professionnel') selected @endif>Professionnel</option>
           </select>
           </div>
         </div>

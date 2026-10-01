@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use File;
 
 class AuthentificationController extends Controller
 {
@@ -18,26 +17,21 @@ class AuthentificationController extends Controller
     //function pour sauvgarder user
     public function postinscription(Request $request) {
         $request->validate(
-            ['nom' => 'required|alpha',
-            'prenom'=>'required|alpha',
+            ['nom' => 'required|string|max:255',
+            'prenom'=>'required|string|max:255',
             'email'=>'required|email|unique:users',
-            'adresse'=>'required|alpha',
-            'tel'=>'required|numeric',
-            'password' => 'required',
-            'role'=>'required',
-            'image' => 'image|mimes:jpg,jpeg,png,gif|max:2048',
+            'adresse'=>'required|string|max:255',
+            'tel'=>'required|digits:8',
+            'password' => 'required|min:8',
+            'role'=>'required|in:Client,Professionnel',
+            'image' => 'required|image|mimes:jpg,jpeg,png,gif|max:2048',
 
             ]
            );
 
-           $infos=$request->except('image');
-
        $img=$request->image;
-       if($img)
-       {
-        $img_nom=uniqid().'.'.File::extension($img->getClientOriginalName());
-        $img->move('clients/images_clients',$img_nom);
-       }
+       $img_nom=uniqid().'.'.$img->extension();
+       $img->move(public_path('clients/images_clients'),$img_nom);
 
         $u=new User();
         $u->nom=$request->nom;
@@ -52,25 +46,35 @@ class AuthentificationController extends Controller
         $u->save();
 
         Auth::login($u);
+        $request->session()->regenerate();
 
-        return redirect()->route('profil')->with('msg','Votre bien est crée avec succées');
+        return redirect()->route('profil')->with('msg','Votre compte est créé avec succès');
     }
-    
+
     public function postconnexion(Request $request){
 
-        
+        $request->validate(
+            ['email' => 'required|email',
+            'password' => 'required',
+            'role'=>'required|in:Client,Professionnel',
+            ]
+           );
+
         if(Auth::attempt(['email' => $request->email , 'password' => $request->password, 'role' => $request->role ]))
         {
             if(Auth::user()->archive =='1'){
-            return redirect()->route('profil');
+                $request->session()->regenerate();
+                return redirect()->route('profil');
             }
-            else 
+            else
             {
+                //Compte bloqué : on annule la connexion
+                Auth::logout();
                 return redirect()->back()->with('message1','Votre Compte est bloqué');
             }
         }
-       
 
-        return back()->withErrors(['failed'=>"Invalid Email/password"]) ;
+
+        return back()->withInput($request->only('email','role'))->withErrors(['failed'=>"Email ou mot de passe incorrect"]) ;
     }
 }

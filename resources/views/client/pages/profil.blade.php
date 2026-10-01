@@ -5,7 +5,10 @@
 <div class="container">
   <div class="title" Style="text-transform: capitalize;">{{ Auth::user()->nom  }}&nbsp;{{ Auth::user()->prenom }}</div>
   <div class="content">
-    
+    @if ($message = Session::get('msg'))
+      <div class="alert" Style="color: green;text-align:center;">{{ $message }} </div>
+    @endif
+
       
       <div class="btnPs">
         <div class="btnP"><a href="{{ route('monprofil') }}"><button type="button">Mon Profil</button></a></div>

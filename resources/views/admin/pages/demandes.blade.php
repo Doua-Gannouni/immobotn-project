@@ -31,20 +31,18 @@
           </tr>
         </thead>
         <tbody>
-          @foreach($demande_client as $d) 
+          @foreach($demandes as $d)
            <tr>
-            
+
                 <td><img id="imgB" src="{{url('clients/images_biens',$d->biens->image) }}" width="50px" height="50px"></td>
                 <th scope="row">{{ $d->biens->titre }}</th>
                 <td>{{ $d->clients->prenom}}&nbsp;{{ $d->clients->nom}}</td>
-                <td>{{ $d->profs->nom }}&nbsp;{{ $d->profs->prenom }}</td>
-                
+                <td>{{ $d->profs->prenom }}&nbsp;{{ $d->profs->nom }}</td>
+
                 <td style="width:180px;text-align:center"><a style="margin-right:15px;margin-left:auto;" href="{{ route('details_demande',$d->id) }}"><button class="btn btn-outline-primary" title = "Détails" type="button" > Détails </button></a></td>
-           
-        
+           </tr>
          @endforeach
-          </tr>
-       
+
         </tbody>
       </table>
 

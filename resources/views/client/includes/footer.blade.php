@@ -12,7 +12,7 @@
    <span style="--i:9">N</span>
         </div>
          
-         <p>Plateforme web pour la mise en relation entre les clients et les professionnels dans le domaine de l’immobilière en Tunisie.</p>
+         <p>Plateforme web pour la mise en relation entre les clients et les professionnels dans le domaine de l’immobilier en Tunisie.</p>
          
         
         
@@ -51,5 +51,6 @@
   20% {
     transform: translateY(-20px)
   }
+}
 
 </style>

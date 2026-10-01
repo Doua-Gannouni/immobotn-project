@@ -3,7 +3,6 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Auth;
@@ -12,6 +11,7 @@ class ContactMail extends Mailable
 {
     use Queueable, SerializesModels;
     public $data;
+    public $user;
 
     /**
      * Create a new message instance.
@@ -21,6 +21,7 @@ class ContactMail extends Mailable
     public function __construct($data)
     {
         $this->data = $data;
+        $this->user = Auth::user();
     }
 
     /**
@@ -30,9 +31,8 @@ class ContactMail extends Mailable
      */
     public function build()
     {
-       // return  $this->subject('Email : '. $this->data->subject)->view('client.pages.ContactMail');
-       $user = Auth::user()->email;
-       return $this->from($user)
+       //répondre au mail = répondre au client
+       return $this->replyTo($this->user->email)
        ->subject('Contact')
        ->view('client.pages.emails.ContactMail');
     }

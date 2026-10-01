@@ -2,10 +2,10 @@
 
 @section('contenu')
 <div class="container">
-  @foreach ($biens as $b)
+  @forelse ($biens as $b)
   <div class="row">
      <div class="card">
-          <img  class="bien_img" src="{{ url('clients/images_biens',$b->image) }}"><img>
+          <img  class="bien_img" src="{{ url('clients/images_biens',$b->image) }}">
           <h5 class="bien_titre"> {{  $b->titre }} </h5>
           <p class="bien_prix"> {{  $b->prix}} TND</p>
         <div class="card_footer">
@@ -17,7 +17,7 @@
           @elseif(Auth::user()->role=='Professionnel')
           <a href="{{ route('detailsbien',$b->id) }}"><button class="btn_bien1" style="margin-left: 110px;">Details</button></a>
           
-          @elseif (Auth::user()->role = 'Client') 
+          @elseif (Auth::user()->role == 'Client')
             <a href="{{ route('detailsbien',$b->id) }}"><button class="btn_bien1">Details</button></a>
             <a href="{{  route('contact',$b->id) }}"><button  class="btn_bien2" >Contact</button></a>
 
@@ -28,7 +28,9 @@
   
      </div>
   </div>
-  @endforeach
+  @empty
+  <p style="font-size:20px;color:slategray;">Aucun bien trouvé.</p>
+  @endforelse
  
 </div>
 

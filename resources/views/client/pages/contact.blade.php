@@ -15,7 +15,7 @@
           
           <div class="input-box">
             <span class="details">Titre</span>
-            <input type="text" name="titre" placeholder="Titre..." value="Bien {{ $bien->titre }}">
+            <input type="text" name="titre" placeholder="Titre..." value="{{ old('titre', 'Bien '.$bien->titre) }}">
             @error('titre')
           <div Style="color:red">
           {{ $message }}
@@ -35,7 +35,7 @@
 
           <div class="input-box">
             <span class="details">Description</span>
-            <textarea type="text" name="description" placeholder="Description..." value="{{ @old('description') }}" ></textarea>
+            <textarea name="description" placeholder="Description..." >{{ old('description') }}</textarea>
             @error('description')
           <div Style="color:red">
           {{ $message }}
@@ -54,6 +54,8 @@
   
  
   
+@endsection
+
   <style>
   
   .container{

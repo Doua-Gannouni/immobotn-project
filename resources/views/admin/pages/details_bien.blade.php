@@ -29,14 +29,15 @@
         <!-- Slides with controls -->
         <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
-            @foreach ($images as $i )
-            
-                <div class="carousel-item active">
+            @forelse ($images as $i )
+
+                <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
                   <img src="{{ url('clients/images_biens',$i->image)}}" class="d-block w-100" alt="...">
                 </div>
-               
-             
-            @endforeach
+
+            @empty
+                <p>Aucune image supplémentaire pour ce bien.</p>
+            @endforelse
            </div>
 
           <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">

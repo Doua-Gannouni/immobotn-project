@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use DB;
-use App\Models\Bien;
 use Illuminate\Http\Request;
 
 
@@ -16,20 +15,28 @@ class IndexController extends Controller
         return view ('client.pages.index',compact('biens')) ;
     }
 
-    //function recherche
+    //function recherche : par titre (contient le mot), prix ou surface
     public function rechercher(Request $request)
     {
-        $Biens=DB::table('biens')->where('active',1)->where('titre' , $request->cherche)->orWhere('prix',$request->cherche)->orWhere('surface',$request->cherche)->get();
-        
-        return view('client.pages.index')->with('biens' , $Biens);  
-    
+        $cherche = $request->cherche;
+
+        $Biens=DB::table('biens')->where('active',1)
+            ->where(function($query) use ($cherche){
+                $query->where('titre' , 'like' , '%'.$cherche.'%')
+                      ->orWhere('prix',$cherche)
+                      ->orWhere('surface',$cherche);
+            })
+            ->orderBy('created_at' , 'desc')->get();
+
+        return view('client.pages.index')->with('biens' , $Biens);
+
     }
 
     //function return page service
-    public function service(Request $request)
+    public function service()
     {
         return view('client.pages.service');
     }
 
-   
+
 }

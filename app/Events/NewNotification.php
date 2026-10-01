@@ -4,8 +4,6 @@ namespace App\Events;
 
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
@@ -14,8 +12,9 @@ class NewNotification implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-     public $user_id;
      public $bien_id;
+     public $titre;
+     public $prof;
     /**
      * Create a new event instance.
      *
@@ -23,10 +22,9 @@ class NewNotification implements ShouldBroadcast
      */
     public function __construct($data = [])
     {
-        $this-> user_id = $data['user_id'];
-        $this-> bien_id = $data['bien_id'];
-
-
+        $this->bien_id = $data['bien_id'];
+        $this->titre = $data['titre'];
+        $this->prof = $data['prof'];
     }
 
     /**
@@ -36,7 +34,16 @@ class NewNotification implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-       // return new Channel(name:'new_notification');
-       return ['new-notification'];
+       return new Channel('new-notification');
+    }
+
+    /**
+     * Nom de l'événement reçu par Pusher côté JavaScript
+     *
+     * @return string
+     */
+    public function broadcastAs()
+    {
+        return 'NewNotification';
     }
 }

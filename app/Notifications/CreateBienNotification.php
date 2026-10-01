@@ -2,11 +2,8 @@
 
 namespace App\Notifications;
 
-use id;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\MailMessage;
 
 class CreateBienNotification extends Notification
 {
@@ -19,13 +16,15 @@ class CreateBienNotification extends Notification
      */
 
      public $id;
-     public $create_bien;
+     public $titre;
+     public $prof;
 
-    
-     public function __construct($id , $create_bien)
+
+     public function __construct($id , $titre , $prof)
     {
         $this->id = $id;
-        $this->create_bien = $create_bien;
+        $this->titre = $titre;
+        $this->prof = $prof;
     }
 
     /**
@@ -40,20 +39,6 @@ class CreateBienNotification extends Notification
     }
 
     /**
-     * Get the mail representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
-     */
-    public function toMail($notifiable)
-    {
-        return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
-    }
-
-    /**
      * Get the array representation of the notification.
      *
      * @param  mixed  $notifiable
@@ -63,7 +48,8 @@ class CreateBienNotification extends Notification
     {
         return [
             'id' =>$this->id,
-            'create_bien' =>$this->create_bien
+            'titre' =>$this->titre,
+            'prof' =>$this->prof,
 
         ];
     }

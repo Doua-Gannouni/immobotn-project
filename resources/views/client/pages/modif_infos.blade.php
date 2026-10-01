@@ -55,7 +55,7 @@
         </div>
         <div class="input-box">
           <span class="details">Mot de passe</span>
-          <input name="password" type="password" value="{{ Auth::user()->password }}" >
+          <input name="password" type="password" value="" placeholder="Laisser vide pour ne pas changer" >
           @error('password')
           <div Style="color:red">
           {{ $message }}
@@ -64,16 +64,11 @@
         </div>
         
         <div class="input-box">
-          <span class="details">Vous etes professionnel ou client ?</span>
+          <span class="details">Vous êtes professionnel ou client ?</span>
           <div>
           <select name="role">
-            @if (Auth::user()->role=='Client')
-            <option selected>{{ Auth::user()->role }}</option>
-            <option>Professionnel</option>
-            @else
-            <option selected>{{ Auth::user()->role }}</option>
-            <option>Client</option>
-            @endif
+            <option value="Client" @if (Auth::user()->role=='Client') selected @endif>Client</option>
+            <option value="Professionnel" @if (Auth::user()->role=='Professionnel') selected @endif>Professionnel</option>
           </select>
           </div>
         </div>

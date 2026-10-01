@@ -2,12 +2,10 @@
 
 namespace App\Models;
 
-use App\Mail\ContactMail;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Mail;
 
-class contact extends Model
+class Contact extends Model
 {
     use HasFactory;
 

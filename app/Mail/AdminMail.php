@@ -3,7 +3,6 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Auth;
@@ -11,8 +10,9 @@ use Auth;
 class AdminMail extends Mailable
 {
     use Queueable, SerializesModels;
-    
+
     public $data ;
+    public $user ;
     /**
      * Create a new message instance.
      *
@@ -21,6 +21,7 @@ class AdminMail extends Mailable
     public function __construct($data)
     {
         $this->data=$data;
+        $this->user=Auth::user();
     }
 
     /**
@@ -30,6 +31,7 @@ class AdminMail extends Mailable
      */
     public function build()
     {
-        return $this->from(Auth::user()->email)->subject('Contact Message')->view('client.pages.emails.ContactAdmin');
+        //répondre au mail = répondre à l'utilisateur
+        return $this->replyTo($this->user->email)->subject('Contact Message')->view('client.pages.emails.ContactAdmin');
     }
 }

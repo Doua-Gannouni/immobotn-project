@@ -15,28 +15,28 @@
 
   <table>
     <tr>
-  <td><p><span id="spant">Nom</span> </p></td>
-  <td><p><span id="spand">{{ Auth::user()->nom }}</span></p></td>
+  <td><p><span class="spant">Nom</span> </p></td>
+  <td><p><span class="spand">{{ Auth::user()->nom }}</span></p></td>
     </tr>
       <tr>
-        <td><p><span id="spant">Prenom</span> </p></td>
-        <td><p><span id="spand">{{ Auth::user()->prenom}}</span></p></td>
+        <td><p><span class="spant">Prénom</span> </p></td>
+        <td><p><span class="spand">{{ Auth::user()->prenom}}</span></p></td>
       </tr>
             <tr>
-              <td><p><span id="spant">Email</span> </p></td>
-              <td><p><span id="spand">{{Auth::user()->email}}</span></p></td>
+              <td><p><span class="spant">Email</span> </p></td>
+              <td><p><span class="spand" style="text-transform:none;">{{Auth::user()->email}}</span></p></td>
             </tr>
                     <tr>
-                        <td><p><span id="spant">Adresse</span> </p></td>
-                        <td><p><span id="spand">{{Auth::user()->adresse}}</span></p></td>
+                        <td><p><span class="spant">Adresse</span> </p></td>
+                        <td><p><span class="spand">{{Auth::user()->adresse}}</span></p></td>
                           </tr>
                           <tr>
-                            <td><p><span id="spant">Téléphone</span> </p></td>
-                            <td><p><span id="spand">{{Auth::user()->tel}}</span></p></td>
+                            <td><p><span class="spant">Téléphone</span> </p></td>
+                            <td><p><span class="spand">{{Auth::user()->tel}}</span></p></td>
                               </tr>
                               <tr>
-                                <td><p><span id="spant">Role</span> </p></td>
-                                <td><p><span id="spand">{{Auth::user()->role}}</span></p></td>
+                                <td><p><span class="spant">Role</span> </p></td>
+                                <td><p><span class="spand">{{Auth::user()->role}}</span></p></td>
                                   </tr>
                                      
   </table>
@@ -88,14 +88,14 @@ div.details{
 
 
 
-#spant{
+.spant{
   color: slategray;
   font-size: 25px; 
   margin-left: 20px;
   text-transform: capitalize;
 }
 
-#spand{
+.spand{
   margin-left: 40px;
   font-size: 20px;
   text-transform: capitalize;

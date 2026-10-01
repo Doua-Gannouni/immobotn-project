@@ -67,7 +67,12 @@
         <div class="input-box" >
           <span class="details">Images</span>
           <input type="file" name="images[]"  multiple>
-         
+          @error('images.*')
+          <div Style="color:red">
+          {{ $message }}
+          </div>
+          @enderror
+
         </div>
 
       </div>
@@ -77,8 +82,9 @@
     </form>
   </div>
 </div>
-</html>
 
+
+@endsection
 
 <style>
 #btnE{
