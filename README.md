@@ -1,116 +1,66 @@
-# Real Estate Marketplace (Tunisia) — Laravel
+# ImmoboTN — Real Estate Marketplace (Tunisia)
 
-A full-stack real estate web platform connecting **clients** with **real estate professionals** in Tunisia. Professionals list properties (*"biens"*), clients browse, search, and contact them directly, and an admin back-office moderates all listings and users.
+A web platform connecting **clients** with **real estate professionals** in Tunisia. Professionals publish properties, clients browse and contact them, and an administrator moderates listings and users.
 
-> **Note:** The application's user interface is entirely in **French**, as it was built for the Tunisian market.
+**Live demo:** [immobotn.alwaysdata.net](https://immobotn.alwaysdata.net) · Admin panel: `/administrateur`
 
-## About this project
+> The user interface is in **French**, as the platform targets the Tunisian market.
 
-This project was designed and developed **end-to-end (conception → development)** by a single developer during a **1-month internship (stage) in July 2022**, as part of a bachelor's degree (licence) curriculum. It covers the full lifecycle of a small marketplace application: database design, authentication and role management, CRUD operations, a moderation back-office, real-time notifications, and transactional email.
+## About
+
+Designed and developed end-to-end by a single developer during a **one-month internship in July 2022**, as part of a bachelor's degree. It was my first Laravel project.
 
 ## Features
 
-### Client side
-- Registration and login as **Client** or **Professional**
-- Browse and search real estate listings (by price, surface, etc.)
-- View detailed property pages with images
-- Contact a professional directly about a listing (sends a real email)
-- Manage personal profile and account information
-- Track sent requests ("mes demandes")
+**Clients**
+- Sign up and log in as a client or a professional
+- Browse and search properties by title, price or surface
+- View property details with an image gallery
+- Contact a professional about a property (email notification)
+- Manage profile and track sent requests
 
-### Professional side
-- Publish, edit, and manage property listings ("biens")
-- Upload multiple images per property
-- Receive and respond to client requests
+**Professionals**
+- Publish, edit and delete properties with multiple images
+- View requests received from clients
 
-### Admin back-office
-- Secure admin login (separate from client/professional auth)
-- Dashboard overview
-- Moderate listings: activate / deactivate / delete properties
-- Manage users: view, archive/unarchive clients and professionals
-- View and manage contact requests between clients and professionals
-- **Real-time notifications** (via Pusher) when a new property is submitted
-- Edit admin profile
-- Contact form to reach the site administrator
-
-### Emailing
-- Transactional emails sent via **Mailtrap** (SMTP) for client → professional contact requests and client → admin contact messages
+**Administrator**
+- Dashboard with key statistics
+- Approve, reject or delete properties before they go public
+- Archive or reactivate client and professional accounts
+- View all contact requests
+- Real-time notifications when a new property is submitted
 
 ## Tech Stack
 
-### Backend
-| Technology | Version |
+| Layer | Technologies |
 |---|---|
-| PHP | ~8.1.0 |
-| Laravel Framework | ^8.75 |
-| Laravel Sanctum | ^2.11 |
-| Laravel UI | ^3.4 |
-| Laravel Tinker | ^2.5 |
-| Guzzle HTTP | ^7.0.1 |
-| Pusher PHP Server | ^7.0 |
-| fruitcake/laravel-cors | ^2.0 |
+| Backend | PHP 8.1, Laravel 8 (MVC, Eloquent, middlewares, notifications) |
+| Frontend | Blade, CSS, Bootstrap 5 (admin template), jQuery |
+| Database | MySQL |
+| Services | Pusher (real-time events), Mailtrap (SMTP) |
+| Hosting | alwaysdata |
 
-### Frontend
-| Technology | Version |
-|---|---|
-| Blade templates | (Laravel 8) |
-| Bootstrap | ^5.1.3 |
-| Laravel Mix (Webpack) | ^6.0.6 |
-| Axios | ^0.21 |
-| Sass | ^1.32.11 |
-| Popper.js | ^2.10.2 |
-| Pusher JS | (real-time notifications) |
+## Getting Started
 
-### Database & Services
-- **MySQL** — relational database
-- **Mailtrap** — SMTP email testing/delivery
-- **Pusher** — real-time event broadcasting (admin notifications)
+Requirements: **PHP 8.1**, Composer and MySQL. Dependencies are locked to their 2022 versions and do not support PHP 8.2+.
 
-### Testing / Tooling
-- PHPUnit ^9.5.10
-- Laravel Sail ^1.0.1
-- Facade Ignition ^2.5 (error page)
-- Faker (test data)
+```bash
+git clone https://github.com/Doua-Gannouni/ImmoboTN-2022.git
+cd ImmoboTN-2022
+composer install
+cp .env.example .env
+php artisan key:generate
+```
 
-## Architecture
+Set the database, Mailtrap and Pusher credentials in `.env`, along with `ADMIN_EMAIL` and `ADMIN_PASSWORD` for the administrator account. Then run:
 
-- **MVC** structure (standard Laravel), with controllers split by domain: `AdminController`, `AuthentificationController`, `BienController`, `ContactController`, `ProfilController`, `ClientController`, `IndexController`
-- **Eloquent models**: `User` (role-based: client / professional / admin), `Bien` (property), `Image`, `Contact`
-- **Role-based access** with middlewares: `admin`, `client` and `professionnel`
-- **Separate view namespaces** for `admin` and `client` interfaces (`resources/views/admin`, `resources/views/client`)
-- **Event/Notification system**: `NewNotification` event broadcast over Pusher, `CreateBienNotification` for database notifications
+```bash
+php artisan migrate
+php artisan db:seed
+php artisan serve
+```
 
-## Local Setup
+## Notes
 
-> All dependencies are locked to the versions of 2022 (`composer.lock`, Laravel 8.83.19, Carbon 2.59.1).
-> They require **PHP 8.1** (PHP 8.2+ is not supported by these versions).
-
-1. Clone the repository and install PHP dependencies:
-   ```bash
-   composer install
-   ```
-2. Copy the environment file and generate an app key:
-   ```bash
-   cp .env.example .env
-   php artisan key:generate
-   ```
-3. Configure your database (MySQL) and Mailtrap credentials in `.env`, plus:
-   - `MAIL_FROM_ADDRESS` — sender address of the emails
-   - `ADMIN_EMAIL` / `ADMIN_PASSWORD` — admin account created by the seeder
-   - `PUSHER_APP_*` and `BROADCAST_DRIVER=pusher` for real-time notifications (optional)
-4. Run migrations:
-   ```bash
-   php artisan migrate
-   ```
-5. Seed the admin account:
-   ```bash
-   php artisan db:seed
-   ```
-6. Serve the application:
-   ```bash
-   php artisan serve
-   ```
-
-## Disclaimer
-
-This project was built as a learning exercise during an academic internship. It is not maintained for production use and reflects the technology versions available in 2022 (Laravel 8, now end-of-life).
+- Built in 2022 with the stack available at the time (Laravel 8 is now end-of-life).
+- Reviewed in 2026 to fix security issues and deploy the project, keeping the original 2022 stack.
