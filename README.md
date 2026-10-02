@@ -1,66 +1,81 @@
-# ImmoboTN — Real Estate Marketplace (Tunisia)
+# ImmoboTN
 
-A web platform connecting **clients** with **real estate professionals** in Tunisia. Professionals publish properties, clients browse and contact them, and an administrator moderates listings and users.
+A real estate marketplace for Tunisia that connects clients with real estate professionals, with an admin back office to moderate listings and users.
 
-**Live demo:** [immobotn.alwaysdata.net](https://immobotn.alwaysdata.net) · Admin panel: `/administrateur`
+![Laravel](https://img.shields.io/badge/Laravel-8-FF2D20?logo=laravel&logoColor=white)
+![PHP](https://img.shields.io/badge/PHP-8.1-777BB4?logo=php&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-4479A1?logo=mysql&logoColor=white)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-5-7952B3?logo=bootstrap&logoColor=white)
 
-> The user interface is in **French**, as the platform targets the Tunisian market.
+**[Live demo](https://immobotn.alwaysdata.net)** · **[Portfolio](https://portfolio.doua-automation.xyz/)**
+
+![ImmoboTN preview](docs/preview.webp)
 
 ## About
 
-Designed and developed end-to-end by a single developer during a **one-month internship in July 2022**, as part of a bachelor's degree. It was my first Laravel project.
+ImmoboTN was designed and developed end-to-end during a one-month internship in July 2022, as part of a bachelor's degree. It was my first Laravel project. The user interface is in French, as the platform targets the Tunisian market.
 
 ## Features
 
-**Clients**
-- Sign up and log in as a client or a professional
-- Browse and search properties by title, price or surface
-- View property details with an image gallery
-- Contact a professional about a property (email notification)
-- Manage profile and track sent requests
-
-**Professionals**
-- Publish, edit and delete properties with multiple images
-- View requests received from clients
-
-**Administrator**
-- Dashboard with key statistics
-- Approve, reject or delete properties before they go public
-- Archive or reactivate client and professional accounts
-- View all contact requests
-- Real-time notifications when a new property is submitted
+- **Clients**: browse and search properties, view photo galleries, contact professionals by email, track sent requests.
+- **Professionals**: publish, edit and delete properties with multiple images, view requests received from clients.
+- **Administrator**: dashboard with statistics, approval of new listings, account archiving, real-time notifications with Pusher.
 
 ## Tech Stack
 
-| Layer | Technologies |
-|---|---|
-| Backend | PHP 8.1, Laravel 8 (MVC, Eloquent, middlewares, notifications) |
-| Frontend | Blade, CSS, Bootstrap 5 (admin template), jQuery |
-| Database | MySQL |
-| Services | Pusher (real-time events), Mailtrap (SMTP) |
-| Hosting | alwaysdata |
+- **Backend**: PHP 8.1, Laravel 8, MySQL
+- **Frontend**: Blade, CSS, Bootstrap 5, jQuery
+- **Services**: Pusher (real-time notifications), Mailtrap (SMTP)
+- **Hosting**: alwaysdata
 
 ## Getting Started
 
-Requirements: **PHP 8.1**, Composer and MySQL. Dependencies are locked to their 2022 versions and do not support PHP 8.2+.
+### Prerequisites
+
+- PHP 8.1 (the 2022 dependencies do not support PHP 8.2+)
+- Composer
+- MySQL
+
+### Installation
 
 ```bash
-git clone https://github.com/Doua-Gannouni/ImmoboTN-2022.git
-cd ImmoboTN-2022
+git clone https://github.com/Doua-Gannouni/immobotn-project.git
+cd immobotn-project
 composer install
 cp .env.example .env
 php artisan key:generate
 ```
 
-Set the database, Mailtrap and Pusher credentials in `.env`, along with `ADMIN_EMAIL` and `ADMIN_PASSWORD` for the administrator account. Then run:
+### Configuration
+
+Set the following variables in `.env`:
+
+| Variables | Purpose |
+|---|---|
+| `DB_*` | MySQL connection |
+| `MAIL_*` | SMTP server used to send contact emails |
+| `PUSHER_*`, `BROADCAST_DRIVER` | Real-time admin notifications (optional) |
+| `ADMIN_EMAIL`, `ADMIN_PASSWORD` | Administrator account created by the seeder |
+
+### Run
 
 ```bash
-php artisan migrate
-php artisan db:seed
+php artisan migrate --seed
 php artisan serve
 ```
 
-## Notes
+The application runs at `http://localhost:8000`, and the admin panel at `/administrateur`.
 
-- Built in 2022 with the stack available at the time (Laravel 8 is now end-of-life).
-- Reviewed in 2026 to fix security issues and deploy the project, keeping the original 2022 stack.
+## Project Structure
+
+```
+app/Http/Controllers   Controllers for clients, professionals and the admin
+app/Http/Middleware    Role-based access (admin, client, professionnel)
+app/Models             User, Bien (property), Image, Contact
+database/migrations    Database schema
+resources/views        Blade views (client and admin interfaces)
+```
+
+## Author
+
+**Doua Gannouni** · [Portfolio](https://portfolio.doua-automation.xyz/) · [GitHub](https://github.com/Doua-Gannouni)
