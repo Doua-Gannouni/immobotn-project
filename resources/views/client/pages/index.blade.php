@@ -15,7 +15,7 @@
           <a href="{{ route('connexion') }}" ><button class="btn_bien2">Contact</button></a>
           
           @elseif(Auth::user()->role=='Professionnel')
-          <a href="{{ route('detailsbien',$b->id) }}"><button class="btn_bien1" style="margin-left: 110px;">Details</button></a>
+          <a href="{{ route('detailsbien',$b->id) }}"><button class="btn_bien1">Details</button></a>
           
           @elseif (Auth::user()->role == 'Client')
             <a href="{{ route('detailsbien',$b->id) }}"><button class="btn_bien1">Details</button></a>
@@ -89,8 +89,9 @@ margin-left: 60px;
   border-radius: 5px;
 border: 1px solid #ccc;
 border-bottom-width: 2px;
-
-
+  /* contenu en colonne : le footer reste toujours en bas de la carte */
+  display: flex;
+  flex-direction: column;
 
 }
 
@@ -106,6 +107,7 @@ border-bottom-width: 2px;
     text-align: center;
     font-size: 15px;
     text-transform: capitalize;
+    margin-top: 10px;
     margin-bottom: 2px;
 }
 
@@ -116,8 +118,7 @@ border-bottom-width: 2px;
 }
 
 .btn_bien1  , .btn_bien2{
-  margin-top: 10px;
-  text-align: center; 
+  text-align: center;
   border-radius: 5px;
   color: white;
   height: 25px;
@@ -132,7 +133,6 @@ border-bottom-width: 2px;
 }
 
 .btn_bien1{
-  margin-left: 70px;
   background-color: #177d85;
   border-color: #177d85;
   margin-right: 5px;
@@ -155,10 +155,14 @@ border-bottom-width: 2px;
 }*/
 
 .card_footer {
-  height: 20px;
-  margin-top: 20px;
+  height: 45px;
+  margin-top: auto;
   border-top: 1px solid #ccc;
   border-top-width: 2px;
+  /* boutons centrés dans le footer */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 

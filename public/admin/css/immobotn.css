@@ -1,0 +1,315 @@
+/*--------------------------------------------------------------
+# Couleurs et police IMMOBOTN pour la partie admin
+# (même style que la partie client : #177d85, slategray, Lilita One)
+--------------------------------------------------------------*/
+
+@import url('https://fonts.googleapis.com/css2?family=Lilita+One&display=swap');
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.card-title,
+.breadcrumb,
+.logo span,
+.sidebar-nav .nav-link,
+.table,
+.btn,
+.form-control,
+.dropdown-menu,
+.nav-tabs-bordered .nav-link,
+.dataTable-wrapper {
+    font-family: "Lilita One", sans-serif;
+}
+
+body {
+    background: white;
+    color: black;
+}
+
+a {
+    color: #177d85;
+}
+
+a:hover {
+    color: slategray;
+}
+
+
+/* Header */
+
+.header {
+    height: 70px;
+    box-shadow: 0px 2px 15px rgba(112, 128, 144, 0.3);
+}
+
+/* le logo a beaucoup de vide autour : on garde seulement le centre */
+.header .logo img {
+    max-height: none;
+    height: 60px;
+    width: 160px;
+    object-fit: cover;
+}
+
+.header .toggle-sidebar-btn {
+    color: #177d85;
+}
+
+.header-nav .nav-icon {
+    color: slategray;
+}
+
+.header-nav .nav-profile span {
+    color: black;
+}
+
+.header-nav .badge-number {
+    background-color: #177d85 !important;
+}
+
+.header-nav .notifications .notification-item h4 a {
+    color: #177d85;
+}
+
+.header-nav .notifications .notification-item i {
+    color: slategray !important;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+    color: #177d85;
+    background-color: #f2f7f7;
+}
+
+.badge.bg-primary {
+    background-color: #177d85 !important;
+}
+
+
+/* Sidebar : noire comme la barre de menu de la partie client */
+
+.sidebar {
+    top: 70px;
+    background-color: black;
+    box-shadow: none;
+}
+
+#main {
+    margin-top: 70px;
+}
+
+/* page active */
+.sidebar-nav .nav-link,
+.sidebar-nav .nav-link:hover {
+    color: white;
+    background: #177d85;
+    border-bottom: 4px solid transparent;
+    font-weight: normal;
+}
+
+/* autres pages */
+.sidebar-nav .nav-link.collapsed {
+    color: white;
+    background: black;
+}
+
+/* survol : souligné comme le menu de la partie client */
+.sidebar-nav .nav-link.collapsed:hover {
+    color: white;
+    background: black;
+    border-bottom: 4px solid #177d85;
+}
+
+.sidebar-nav .nav-link i,
+.sidebar-nav .nav-link.collapsed i,
+.sidebar-nav .nav-link:hover i {
+    color: white;
+}
+
+
+/* Titres */
+
+.pagetitle h1 {
+    color: #177d85;
+    font-weight: normal;
+    font-size: 28px;
+}
+
+.breadcrumb,
+.breadcrumb a,
+.breadcrumb .breadcrumb-item::before {
+    color: slategray;
+    font-weight: normal;
+}
+
+.breadcrumb a:hover,
+.breadcrumb .active {
+    color: #177d85;
+}
+
+.card-title,
+.card-title a {
+    color: #177d85;
+    font-weight: normal;
+}
+
+
+/* Cartes : comme les cartes des biens de la partie client */
+
+.card {
+    border: 1px solid #ccc;
+    border-bottom-width: 2px;
+    border-radius: 5px;
+    box-shadow: none;
+}
+
+.dashboard .info-card:hover {
+    box-shadow: 0 5px 15px slategray;
+}
+
+.dashboard .info-card h6 {
+    color: black;
+    font-weight: normal;
+}
+
+.dashboard .sales-card .card-icon {
+    color: #177d85;
+    background: #e3f1f2;
+}
+
+.dashboard .revenue-card .card-icon,
+.dashboard .customers-card .card-icon {
+    color: slategray;
+    background: #eef0f2;
+}
+
+
+/* Boutons : dégradé comme les boutons de la partie client */
+
+.btn-primary {
+    border: none;
+    background: linear-gradient(135deg, #177d85, #708090);
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    background: linear-gradient(-135deg, #177d85, #708090);
+}
+
+.btn-outline-primary {
+    color: #177d85;
+    border-color: #177d85;
+}
+
+.btn-outline-primary:hover {
+    color: white;
+    background-color: #177d85;
+    border-color: #177d85;
+}
+
+
+/* Page profil */
+
+.profile .profile-overview .card-title {
+    color: #177d85;
+}
+
+.profile .profile-overview .label,
+.profile .profile-edit label {
+    color: slategray;
+}
+
+.profile .profile-card h2 {
+    color: black;
+}
+
+
+/* Onglets du profil */
+
+.nav-tabs-bordered .nav-link:hover,
+.nav-tabs-bordered .nav-link:focus {
+    color: #177d85;
+}
+
+.nav-tabs-bordered .nav-link.active {
+    color: #177d85;
+    border-bottom: 2px solid #177d85;
+}
+
+
+/* Formulaires */
+
+.form-control:focus {
+    border-color: #177d85;
+    box-shadow: 0 0 0 0.2rem rgba(23, 125, 133, 0.25);
+}
+
+
+/* Tableaux */
+
+.dashboard .recent-sales .table thead,
+.dashboard .top-selling .table thead {
+    background: #e3f1f2;
+}
+
+.table thead th {
+    color: #177d85;
+    font-weight: normal;
+}
+
+.dataTable-pagination .active a,
+.dataTable-pagination .active a:hover,
+.dataTable-pagination .active a:focus {
+    background-color: #177d85;
+    color: white;
+}
+
+.dataTable-pagination a:hover {
+    background-color: #e3f1f2;
+}
+
+
+/* Page de connexion admin */
+
+.register .logo {
+    width: auto;
+}
+
+.register .logo img {
+    max-height: none;
+    height: 90px;
+    width: 240px;
+    object-fit: cover;
+}
+
+.register .logo span {
+    color: #177d85;
+    font-size: 32px;
+    font-weight: normal;
+    /* le logo a du vide à droite : on rapproche le texte */
+    margin-left: -40px;
+}
+
+.register .card-title {
+    color: black;
+}
+
+form .button input {
+    height: 45px;
+    width: 100%;
+    border-radius: 5px;
+    border: none;
+    color: #fff;
+    font-size: 18px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: linear-gradient(135deg, #177d85, #708090);
+}
+
+form .button input:hover {
+    background: linear-gradient(-135deg, #177d85, #708090);
+}

@@ -57,10 +57,10 @@
     
  </div>
 
- <div class="col-lg-3">
+ <div class="col-lg-6">
 
     <!-- Card with an image on top -->
-    <div class="card" style="width: 500px;">
+    <div class="card">
       <img src="{{ url('clients/images_biens',$bien->image) }}" class="card-img-top" alt="...">
       <div class="card-body">
         <h5 class="card-title">{{ $bien->titre }}</h5>

@@ -45,7 +45,7 @@
             @endif
           </td>
             <td style="width: 200px;">
-            <a href="{{ route('details_bien',$bien->id) }}"><button title="Details" type="button" style="background-color: transparent;border:transparent;" ><i class="ri-eye-fill" style="font-size:25px;color:blue"></i></button></a>
+            <a href="{{ route('details_bien',$bien->id) }}"><button title="Details" type="button" style="background-color: transparent;border:transparent;" ><i class="ri-eye-fill" style="font-size:25px;color:slategray"></i></button></a>
             <form class="d-inline" action="{{  route('activer_bien',$bien->id) }}" method="POST">
               @csrf
               <button title="Valider" type="submit" style="background-color: transparent;border:transparent;"><i class="ri-checkbox-circle-fill"  style="font-size:25px;color:green"></i></button>
